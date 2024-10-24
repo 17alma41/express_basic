@@ -1,6 +1,6 @@
 ## Query Parameters
 
-EN un endpoint usando query parameters puedo mandar los datos desde la url, mi Back se vería así:
+EN un endpoint usando query parameters puedo mandar los datos desde la url, mi back se vería así:
 
 ```js
     app.get('/query_parameters', (req, res) => {
@@ -10,7 +10,7 @@ EN un endpoint usando query parameters puedo mandar los datos desde la url, mi B
     });
 ```
 
-Y el Front así:
+Y el front así:
 
 ```js
 <a href="/query_aprameters?clave=valor">Saludar</a>
@@ -79,4 +79,33 @@ app.post('/json', (req, res) => {
 });
 ```
 
-ES importante añadir `app.use(express.json())` o no podremos recibir el dato en el `/fetch_api.html`.
+Es importante añadir `app.use(express.json())` o no podremos recibir el dato en el `/fetch_api.html`.
+
+## Params
+
+Para acceder a un usuario podemos usar el `params`.
+
+En el front:
+
+```html
+<a href="/usuario/123">Ver Usuario</a>
+<p id="respuesta"></p>
+
+<script>
+const nombre = "Alvaro"
+const parrafo = document.getElementById("respuesta")
+
+fetch(`/usuario/${nombre}`)
+.then(response => response.text())
+.then(data => parrafo.textContent = data);
+</script>
+```
+ 
+En el backend:
+
+```js
+app.get('/usuario/:id', (req, res) => {
+    const id = req.params.id;
+    res.send(`Usuario ID: ${id}`);
+});
+```
