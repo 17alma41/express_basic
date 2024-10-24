@@ -1,0 +1,11 @@
+<a href="/usuario/123">Ver Usuario</a>
+<p id="respuesta"></p>
+
+<script>
+const nombre = "Alvaro"
+const parrafo = document.getElementById("respuesta")
+
+fetch(`/usuario/${nombre}`)
+.then(response => response.text())
+.then(data => parrafo.textContent = data);
+</script>
