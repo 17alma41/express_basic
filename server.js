@@ -4,8 +4,6 @@ const path = require('path')
 
 app.use(express.static(path.join(__dirname, 'public'))) //repasar
 
-// Middleware para parsear el cuerpo (body) de las solicitudes
-app.use(express.urlencoded({ extended: true })); //reapsar
 
 app.get('/query_parameters', (req, res) => {
     const clave = req.query.clave;
@@ -13,9 +11,22 @@ app.get('/query_parameters', (req, res) => {
     res.send(`Hola, ${clave}!`);
 });
 
-app.post('/enviar', (req, res) => {
+// Middleware para parsear el cuerpo (body) de las solicitudes
+app.use(express.urlencoded({ extended: true })); //repasar
+
+app.post('/post_request', (req, res) => {
     const mensaje = req.body.mensaje;
-    res.send(`Mensaje recibido: ${mensaje}`);
+    const nombre = req.body.nombre;
+    console.log(mensaje, nombre)
+    res.send(`Mensaje recibido: ${mensaje}, ${nombre}`);
+});
+
+// Middleware para parsear JSON
+app.use(express.json());
+
+app.post('/json', (req, res) => {
+    const nombre = req.body.nombre
+    res.send(`Hola, ${nombre}!`);
 });
 
 app.listen(3000, () => {
